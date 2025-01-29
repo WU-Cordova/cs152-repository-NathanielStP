@@ -1,28 +1,37 @@
 from typing import Iterable, Optional
-from datastructures.ibag import IBag, T
+from ibag import IBag, T
 
 
 class Bag(IBag[T]):
     def __init__(self, *items: Optional[Iterable[T]]) -> None:
-        raise NotImplementedError("__init__ method not implemented")
+        self.__bag: dict[T, int] = {}
+
+        if items != None:
+            for item in items:
+                self.add(item)
 
     def add(self, item: T) -> None:
-        raise NotImplementedError("add method not implemented")
+        if item in self.__bag:
+            self.__bag[item] += 1
+        else:
+            self.__bag[item] = 1
 
     def remove(self, item: T) -> None:
-        raise NotImplementedError("remove method not implemented")
+        self.__bag[item] -= 1
 
     def count(self, item: T) -> int:
-        raise NotImplementedError("count method not implemented")
+        return self.__bag.get(item)
 
     def __len__(self) -> int:
-        raise NotImplementedError("__len__ method not implemented")
+        return len(self.__bag)
 
-    def distinct_items(self) -> int:
-        raise NotImplementedError("distinct_items method not implemented")
+    def distinct_items(self) -> Iterable[T]:
+        return self.__bag.keys()
 
     def __contains__(self, item) -> bool:
-        raise NotImplementedError("__contains__ method not implemented")
+        if item in self.__bag:
+            return True
+        else: return False
 
     def clear(self) -> None:
-        raise NotImplementedError("clear method not implemented")
+        self.__bag.clear()
