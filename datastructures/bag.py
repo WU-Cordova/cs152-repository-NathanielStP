@@ -19,16 +19,14 @@ class Bag(IBag[T]):
             self.__bag[item] = 1
 
     def remove(self, item: T) -> None:
-        thing = self.__bag.get(item)
-        if thing == None:
+        if item not in self.__bag:
             raise ValueError()
         self.__bag[item] -= 1
 
     def count(self, item: T) -> int:
-        output = self.__bag.get(item)
-        if output == None:
+        if item not in self.__bag:
             return 0
-        return output
+        return self.__bag.get(item)
 
     def __len__(self) -> int:
         amount_list = self.__bag.values()
