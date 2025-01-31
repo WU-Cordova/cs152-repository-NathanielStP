@@ -11,9 +11,16 @@ class Game:
 
     def attack(self, attacker: Character, defender: Character):
         # Performs attack where attacker rolls dice to determine damage #
-        pass # TODO implement dice roll 1-6 and apply scaled attack #
+        num = random.random(1, 6)
+        attack = num * attacker.attack_power
+        defender.health -= attack
 
     def start_battle(self):
         # Starts turn based battle between 2 players #
-        pass # TODO implement battle loop where players take turns #
-    
+        while self.__player1.health > 0 and self.__player2.health > 0:
+            self.__player1.attack()
+            self.__player2.attack()
+        if self.__player1.health > 0:
+            print(self.__player1.name "wins")
+        else:
+            print(self.__player2.name + "wins")
