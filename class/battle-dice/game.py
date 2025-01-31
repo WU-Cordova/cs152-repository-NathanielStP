@@ -21,6 +21,6 @@ class Game:
             self.__player1.attack()
             self.__player2.attack()
         if self.__player1.health > 0:
-            print(self.__player1.name "wins")
+            print(self.__player1.name + "wins")
         else:
             print(self.__player2.name + "wins")
