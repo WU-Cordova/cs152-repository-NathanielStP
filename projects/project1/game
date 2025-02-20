@@ -1,0 +1,13 @@
+import copy
+import random
+from datastructures.bag import Bag
+from projects.project1.card import Card, Suit, Face
+from projects.project1.deck import Deck
+
+
+class Game:
+    self.__deck = Deck
+
+    def deal(self):
+        self.__deck.remove
+      
