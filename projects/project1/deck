@@ -1,0 +1,8 @@
+import copy
+import random
+from datastructures.bag import Bag
+from projects.project1.card import Card, Suit, Face
+from projects.project1.game import Game
+
+class Deck:
+    
