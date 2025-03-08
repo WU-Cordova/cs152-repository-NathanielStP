@@ -13,6 +13,7 @@ class Array2D(IArray2D[T]):
         def __init__(self, row_index: int, array: IArray, num_columns: int) -> None:
             self.__rowNum = row_index
             self.__rowLength = num_columns
+            self.__array = array
             
 
         def __getitem__(self, column_index: int) -> T:

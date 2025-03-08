@@ -1,0 +1,14 @@
+from datastructures.array import Array
+from datastructures.array2d import Array2D
+from projects.project2.cell import Cell
+
+
+class Grid():
+
+    def __init__(self, length, height, datatype: Cell):
+        mylist = [Cell*length]
+        start_sequence = Array(mylist, data_type=Cell)
+        self.gameGrid = Array2D(starting_sequence=start_sequence * height, data_type=Cell)
+
+    def checkNeighbor(self, positionX: int, positionY: int):
+        return self.gameGrid[positionX][positionY].getlife
