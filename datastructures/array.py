@@ -140,7 +140,7 @@ class Array(IArray[T]):
         return False
 
     def clear(self) -> None:
-        self.__array = np.array[]
+        self.__array = np.array[0]
 
     def __str__(self) -> str:
         return '[' + ', '.join(str(item) for item in self) + ']'
