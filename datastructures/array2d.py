@@ -13,22 +13,22 @@ class Array2D(IArray2D[T]):
         def __init__(self, row_index: int, array: IArray, num_columns: int) -> None:
             self.__rowNum = row_index
             self.__rowLength = num_columns
-            self.__array = array
+            self.__row = array[row_index]
             self.__convert = self.__rowLength*self.__rowNum
             
 
         def __getitem__(self, column_index: int) -> T:
-            return self.__array[self.__convert + column_index]
+            return self.__row[column_index]
         
         def __setitem__(self, column_index: int, value: T) -> None:
-            self.__array[self.__convert + column_index] = value
+            self.__row[column_index] = value
         
         def __iter__(self) -> Iterator[T]:
             for i in range(self.__convert, self.__rowLength+self.__convert):
-                yield self.__array[i]
+                yield self.__row[i]
         
         def __reversed__(self) -> Iterator[T]:
-            myrow = self.__array[self.__convert:self.__convert+self.__rowLength]
+            myrow = self.__row[self.__convert:self.__convert+self.__rowLength]
             for item in reversed(myrow):
                 yield item
 
@@ -43,14 +43,22 @@ class Array2D(IArray2D[T]):
 
 
     def __init__(self, starting_sequence: Sequence[Sequence[T]]=[[]], data_type=object) -> None:
-        if(starting_sequence not isinstance(Sequence)):
+        if not isinstance(starting_sequence, list) or not all(isinstance(item, list) for item in starting_sequence):
             raise ValueError
-        for i in range(1, len(starting_sequence)):
-            if type(starting_sequence[i]) != type(starting_sequence[i-1]):
-                raise ValueError
+        if not all(isinstance(row, list) for row in starting_sequence):
+            raise ValueError
+        row_length = {len(row) for row in starting_sequence}
+        if(len(row_length) > 1):
+            raise ValueError
+        element_type = (type(starting_sequence[0][0]))
+        for row in starting_sequence:
+            for item in row:
+                if not isinstance(item, element_type):
+                    raise ValueError 
         firstdimension = [item for row in starting_sequence for item in row]
         print(firstdimension)
         self.__array = Array(firstdimension, data_type)
+        print(self.__array)
         self.__data_type = data_type
         self.__num_rows = len(starting_sequence)
         self.__num_cols = len(starting_sequence[0])
@@ -69,7 +77,8 @@ class Array2D(IArray2D[T]):
     def __iter__(self) -> Iterator[Sequence[T]]: 
         for i in range(self.__num_rows):
             for x in range(self.__num_cols):
-                yield self.__array[i][x]
+
+                yield self.__array[i*self.__num_cols + x]
     
     def __reversed__(self):
         for i in range(self.__num_rows):
