@@ -44,7 +44,7 @@ class Array(IArray[T]):
         size = self.__logical_size
         if(type(index) is slice):
             start, stop, step = index.indices(len(self.__array))
-            if(start >= size or stop >= size or step >= size or start < 0 or  stop < 0 or step < 0):
+            if(start >= size or stop > size or step >= size or start < 0 or  stop < 0 or step < 0):
                 raise IndexError()
             myslice = self.__array[start:stop:step] 
             arr = Array(myslice)

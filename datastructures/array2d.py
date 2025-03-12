@@ -13,19 +13,22 @@ class Array2D(IArray2D[T]):
         def __init__(self, row_index: int, array: IArray, num_columns: int) -> None:
             self.__rowNum = row_index
             self.__rowLength = num_columns
-            self.__row = array[row_index]
             self.__convert = self.__rowLength*self.__rowNum
-            
+            self.__array = array
+            self.__row = array[self.__rowNum * self.__rowLength: 
+                               (self.__rowNum + 1) * self.__rowLength]
 
         def __getitem__(self, column_index: int) -> T:
             return self.__row[column_index]
         
         def __setitem__(self, column_index: int, value: T) -> None:
             self.__row[column_index] = value
+            self.__array[self.__convert + column_index] = value
         
         def __iter__(self) -> Iterator[T]:
-            for i in range(self.__convert, self.__rowLength+self.__convert):
-                yield self.__row[i]
+            print("here")
+            for item in self.__row:
+                yield item
         
         def __reversed__(self) -> Iterator[T]:
             myrow = self.__row[self.__convert:self.__convert+self.__rowLength]
@@ -36,7 +39,7 @@ class Array2D(IArray2D[T]):
             return self.__rowLength
         
         def __str__(self) -> str:
-            return f"[{', '.join([str(self[column_index]) for column_index in range(self.__rowLength)])}]"
+            return f"[{', '.join(map(str, self.__row))}]"
         
         def __repr__(self) -> str:
             return f'Row {self.__rowNum}: [{", ".join([str(self[column_index]) for column_index in range(self.__rowLength - 1)])}, {str(self[self.__rowLength - 1])}]'
@@ -56,40 +59,34 @@ class Array2D(IArray2D[T]):
                 if not isinstance(item, element_type):
                     raise ValueError 
         firstdimension = [item for row in starting_sequence for item in row]
-        print(firstdimension)
         self.__array = Array(firstdimension, data_type)
-        print(self.__array)
-        self.__data_type = data_type
         self.__num_rows = len(starting_sequence)
         self.__num_cols = len(starting_sequence[0])
 
     @staticmethod
     def empty(rows: int=0, cols: int=0, data_type: type=object) -> Array2D:
-        for i in range(rows):
-            for x in range(cols):
-                myarr = Array2D[i][x] = data_type
-        return myarr
+        return Array2D([[0]*cols for _ in range(rows)], data_type)
 
 
     def __getitem__(self, row_index: int) -> Array2D.IRow[T]: 
-        return self.__array[row_index]
+        print("inside getitem")
+        row = self.Row(row_index, self.__array, self.__num_cols)
+        return row
     
     def __iter__(self) -> Iterator[Sequence[T]]: 
+        print("inside iter")
         for i in range(self.__num_rows):
-            for x in range(self.__num_cols):
-
-                yield self.__array[i*self.__num_cols + x]
+            yield self.Row(i, self.__array, self.__num_cols)
     
     def __reversed__(self):
-        for i in range(self.__num_rows):
-            for x in range(self.__num_cols):
-                yield self.__array[self.__num_rows - 1 - i][self.__num_cols - 1 - x]
+        for i in range(self.__num_rows - 1, -1, -1):
+            yield self.Row(i, self.__array, self.__num_cols)
     
     def __len__(self): 
         return self.__num_rows
                                   
     def __str__(self) -> str: 
-        return f'[{", ".join(f"{str(row)}" for row in self)}]'
+        return f'[{", ".join(str(self.Row(i, self.__array, self.__num_cols)) for i in range(self.__num_rows))}]'
     
     def __repr__(self) -> str: 
         return f'Array2D {self.__num_rows} Rows x {self.__num_cols} Columns, items: {str(self)}'
