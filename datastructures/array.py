@@ -22,7 +22,8 @@ class Array(IArray[T]):
         if not isinstance(starting_sequence, (list, np.ndarray)):
             raise ValueError
         for item in starting_sequence:
-            if not isinstance(item, data_type):
+            if (not isinstance(item, data_type) and (item != data_type)):
+                print(item == data_type)
                 raise TypeError
         self.__array = np.array(starting_sequence)
         self.__data_type = data_type
@@ -144,7 +145,6 @@ class Array(IArray[T]):
             
 
     def __delitem__(self, index: int) -> None:
-        print(self.__array)
         for i in range(index, self.__logical_size - 1):
             self.__array[i] = self.__array[i+1]   
         self.__logical_size -= 1
@@ -154,7 +154,6 @@ class Array(IArray[T]):
                 extra_array[i] = self.__array[i]
             self.__array = extra_array
             self.__physical_size /= 2
-        print(self.__array)
 
     def __contains__(self, item: Any) -> bool:
         for i in range(self.__logical_size):

@@ -12,6 +12,7 @@ class GameController():
             for x in range(height):
                 self.generation[i][x].setlife(random.choice(True, False))
                 num = i*length + x
+                self.generation[i][x].setvalue(num)
 
     def nextGen(self):
         for i in range(self.rows):
