@@ -52,7 +52,7 @@ class Array(IArray[T]):
             return arr
     
     def __setitem__(self, index: int, item: T) -> None:
-        if(not isinstance(item, self.__data_type)):
+        if(not isinstance(item, self.__data_type) and item != self.__data_type):
             raise TypeError
         self.__array[index] = item
 
