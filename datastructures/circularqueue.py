@@ -167,11 +167,6 @@ class CircularQueue(IQueue[T]):
                 mylist2.append(item)
         mylist2 = mylist2 *2
         return any(mylist1 == mylist2[i:i + len(mylist1)] for i in range(len(mylist1)))
-        
-        #for i in range(len(other)):
-         #   if(self.dequeue != other.dequeue):
-          #      return False
-        #return True  
     
     def __len__(self) -> int:
         ''' Returns the number of items in the queue
