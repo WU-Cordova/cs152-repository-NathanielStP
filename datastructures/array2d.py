@@ -69,7 +69,6 @@ class Array2D(IArray2D[T]):
 
 
     def __getitem__(self, row_index: int) -> Array2D.IRow[T]: 
-        print("inside getitem")
         row = self.Row(row_index, self.__array, self.__num_cols)
         return row
     

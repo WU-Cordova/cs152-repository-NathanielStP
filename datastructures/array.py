@@ -40,7 +40,6 @@ class Array(IArray[T]):
         if(type(index) is int and (index >= self.__logical_size or index < 0)):
             raise IndexError()
         if(type(index) is int):
-            print(self.__array[index])
             return self.__array[index]
         size = self.__logical_size
         if(type(index) is slice):
@@ -132,7 +131,6 @@ class Array(IArray[T]):
             for i in range(self.__logical_size):
                 if self.__array[i] != other[i]:
                     return False
-        print("reached here")
         return True
     
     def __iter__(self) -> Iterator[T]:

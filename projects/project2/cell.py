@@ -2,29 +2,29 @@
 
 class Cell():
 
-    def __init__(self, life: bool = False, firstIndex: int = 0, border: str = "False"):
+    def __init__(self, life: bool = False, firstIndex: int = 0):
+        #initializes cell. alive tells you if the cell is alive, the value is used to determine grid repetition
         self.alive = life
         self.value = firstIndex + 1
-        self.border = border
     
-    def __setlife__(self, living: bool):
+    #sets the life value for the cell
+    def __setlife__(self, living: bool) -> None:
         self.alive = living
 
-    def __setvalue__(self, number: int):
+    #sets the cell's value
+    def __setvalue__(self, number: int) -> None:
         self.value = number
 
-    def __setborder__(self, border: str):
-        self.border = border
-
+    #returns if the cell is alive
     def __getlife__(self) -> bool:
         return self.alive
-    
+
+    #returns cell's value    
     def __getvalue__(self) -> int:
         return self.value
+
     
-    def __getborder__(self) -> bool:
-        return self.border
-    
+    #prints the cell "X" if alive, "O" if not
     def __str__(self):
         if(self.alive):
             return "X"
