@@ -34,6 +34,7 @@ class Face(Enum):
             case _:
                 return int(self.value)
     
+    # returns if the card is an ace, for detection of 1 or 11 logic
     def face_card(self)-> str:
         match self:
             case Face.ACE:

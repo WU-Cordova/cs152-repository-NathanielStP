@@ -7,9 +7,11 @@ from projects.project1.multideck import MultiDeck
 
 class Game:
     def __init__(self):
+        # creates the deck to draw cards from
         self.deck = MultiDeck()
 
     def run(self):
+        # gives each player a hand
         dealerHand = self.deck.deal()
         dealerscore = self.score(dealerHand)
         playerHand = self.deck.deal()
@@ -17,11 +19,12 @@ class Game:
         print(str(playerHand[0]) + " " + str(playerHand[1]) + " Player's hand, score: " + str(playerscore))
         print(str(dealerHand[0]) + " [unknown card] Dealer's hand, score: " + str(dealerscore - dealerHand[1].face.face_value()))
         while True:
-            command = input("h to hit, s to stay ")
-            if command != "h" and command != "s":
+            command = input("h to hit, s to stay ").strip().upper()
+            if command != "H" and command != "S":
                 print("invalid command")
-                
-            if command == "h":
+            
+            # if the player hits, they draw a card and the loop continues until they stay or bust
+            if command == "H":
                 card = self.deck.draw()
                 playerHand.append(card)
                 playercards = ""
@@ -33,10 +36,10 @@ class Game:
                 print(str(dealerHand[0]) + " [unknown card] Dealer's hand, score: " + str(dealerscore - dealerHand[1].face.face_value()))
                 if playerscore >= 21:
                     break
-            elif command == "s":
+            elif command == "S":
                 break
 
-
+        # after a stay or bust, gets the dealer to at least 17 and then checks who won
         while dealerscore < 17:
             card = self.deck.draw()
             dealerHand.append(card)
@@ -47,6 +50,7 @@ class Game:
 
     # detects who won
     def win(self, dealerscore, playerscore, dealerHand, playerHand):
+        # creates string for ease of access when printing each player's hand
         dealercards = ""
         for i in range(len(dealerHand)):
             dealercards += str(dealerHand[i])
@@ -71,6 +75,7 @@ class Game:
             else:
                 print("You win.")
     
+    # calculates the score, allowing for aces to be counted as 1 if necessary
     def score(self, hand):
         aces = 0
         score = 0

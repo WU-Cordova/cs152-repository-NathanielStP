@@ -12,6 +12,7 @@ class MultiDeck:
 
         self.deckBag = Bag(*multiDeck)
     
+    # initial deal to each player
     def deal(self) -> list:
         cards = list(self.deckBag.distinct_items())
         card = random.choice(cards)
@@ -21,6 +22,7 @@ class MultiDeck:
         hand = [card, card2]
         return hand
     
+    # draws a card
     def draw(self) -> Card:
         cards = list(self.deckBag.distinct_items())
         card = random.choice(cards)
