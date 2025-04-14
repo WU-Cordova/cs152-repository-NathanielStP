@@ -1,8 +1,14 @@
-
+from projects.project1.game import Game
 
 def main():
     
-    print("Hello, World!")
+    controller = Game()
+    print("Play Blackjack.")
+    go = input("Play? (y/n) ")
+    while go == "Y" or go == "y":
+        controller.run()
+        go = input("Play again? (y/n) ")
+        go.upper()
 
 
 

@@ -5,13 +5,13 @@ import random
 
 
 class Suit(Enum):
-    HEARTS = "Heart"
-    SPADE = "Spade"
+    HEARTS = "Hearts"
+    SPADE = "Spades"
     CLUBS = "Clubs"
     DIAMONDS = "Diamonds" 
 
 class Face(Enum):
-    TWO = "2"
+    TWO = "2" 
     THREE = "3"
     FOUR = "4"
     FIVE = "5"
@@ -20,10 +20,10 @@ class Face(Enum):
     EIGHT = "8"
     NINE = "9"
     TEN = "10"
-    JACK = "J"
-    QUEEN = "Q"
-    KING = "K"
-    ACE = "A"
+    JACK = "Jack"
+    QUEEN = "Queen"
+    KING = "King" 
+    ACE = "Ace"
 
     def face_value(self)-> int:
         match self:
@@ -34,6 +34,13 @@ class Face(Enum):
             case _:
                 return int(self.value)
     
+    def face_card(self)-> str:
+        match self:
+            case Face.ACE:
+                return "Ace"
+            case _:
+                return "None"
+    
 @dataclass
 class Card:
     face: Face
@@ -43,4 +50,4 @@ class Card:
         return hash(self.face.name) * hash(self.suit.name)
     
     def __str__(self)-> str:
-        return f"[{self.face.value}{self.suit.value}]"
+        return f"[{self.face.value} of {self.suit.value}]"
