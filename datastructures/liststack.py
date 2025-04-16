@@ -4,7 +4,7 @@ from typing import Generic
 
 from datastructures.linkedlist import LinkedList
 
-class ListStack[T](Generic[T], IStack[T]):
+class ListStack[T](IStack[T]):
     """
     ListStack (LinkedList-based Stack)
 
@@ -98,12 +98,19 @@ class ListStack[T](Generic[T], IStack[T]):
             bool: True if the stacks are equal, False otherwise.
 
         """
-        list1 = list(self.data)
-        list2 = list(other)
-        if len(list1 != len(list2)):
+        list1 = []
+        list2 = []
+        while not self.empty:
+            list1.append(self.pop())
+        while not other.empty:
+            list2.append(other.pop())
+        if len(list1) != len(list2):
             return False
         for i in range(len(list1)):
+            print(list1[i])
+            print(list2[i])
             if list1[i] != list2[i]:
+                print("inside")
                 return False
         return True
 
