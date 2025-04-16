@@ -1,8 +1,10 @@
-
+from projects.project2.gamecontroller import GameController
 
 def main():
     
-    print("Hello, World!")
+    # runs the game
+    controller = GameController(5, 5)
+    controller.run()
 
 
 
