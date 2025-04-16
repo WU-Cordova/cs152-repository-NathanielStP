@@ -135,6 +135,10 @@ class LinkedList[T](ILinkedList[T]):
     def pop_front(self) -> T:
         if self.empty:
             raise IndexError
+        if len(self) == 1:
+            data = self.head.data
+            self = None
+            return data
         data = self.head.data
         self.head.next.previous = None
         self.head = self.head.next
