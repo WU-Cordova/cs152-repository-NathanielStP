@@ -100,6 +100,10 @@ class Deque[T](IQueue[T]):
             - bool: True if the deque is empty, False otherwise.
         """
         return self.data.empty
+    
+    def __iter__(self):
+        for item in self.data:
+            yield item
 
     def __len__(self) -> int:
         """

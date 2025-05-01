@@ -1,8 +1,8 @@
-
+from projects.project3.system import System
 
 def main():
-    
-    print("Hello, World!")
+    controller = System()
+    controller.run()
 
 
 
